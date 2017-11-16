@@ -102,7 +102,7 @@ class AppsSpider(scrapy.Spider):
 			return
 		word_yyb = response.meta.get('chi', '')
 		next_url = self.base_url + word_yyb + "&pns=" + pageNumberStack + '&sid=0'
-		print(next_url)
+		# print(next_url)
 		yield scrapy.Request(next_url, meta={'chi': word_yyb})
 
 	def parse_detail(self, response):
