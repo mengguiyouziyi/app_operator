@@ -36,6 +36,7 @@ class AppsSpider(scrapy.Spider):
 		items = obj.get('items', [])
 		for ite in items:
 			item = YYBItem()
+
 			# apkMd5 = appDetail.get('apkMd5', '')
 			appDetail = ite.get('appDetail', {})
 			appId = appDetail.get('appId', '')
