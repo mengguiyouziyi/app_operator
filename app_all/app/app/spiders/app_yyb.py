@@ -15,6 +15,8 @@ class AppsSpider(scrapy.Spider):
 	base_url = 'http://sj.qq.com/myapp/searchAjax.htm?kw='
 
 	def start_requests(self):
+		ss = ['百度魔图', '百度魔']
+		for word_yyb in ss:
 		# x = 0
 		# while True:
 		# 	word_yyb = rc.rpop('word_yyb')
@@ -24,7 +26,6 @@ class AppsSpider(scrapy.Spider):
 		# 			raise CloseSpider('no datas')
 		# 		time.sleep(60)
 		# 		continue
-			word_yyb = '百度魔'
 			url = self.start_url.format(word_yyb)
 			yield scrapy.Request(url, meta={'chi': word_yyb})
 
