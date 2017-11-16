@@ -20,7 +20,7 @@ from app.utils.info import rc, etl
 
 def send_key(key):
 	cursor = etl.cursor()
-	sql = """select soft_id, soft_name from hw_app ORDER BY soft_id"""
+	sql = """select soft_id from hw_app ORDER BY soft_id"""
 	cursor.execute(sql)
 	results = cursor.fetchall()
 	values = [str(i['soft_id']) for i in results if i['soft_id']]

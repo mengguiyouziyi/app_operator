@@ -17,17 +17,17 @@ class SoftSpider(Spider):
 	url = 'http://zhushou.360.cn/detail/index/soft_id/{}'
 
 	def start_requests(self):
-		app_ids = ['1','2', '1', '2','3', '4']
-		for app_id in app_ids:
-		# x = 0
-		# while True:
-		# 	app_id = rc.rpop('id_360')
-		# 	if not app_id:
-		# 		x += 1
-		# 		if x > 3:
-		# 			raise CloseSpider('no datas')
-		# 		time.sleep(60)
-		# 		continue
+		# app_ids = ['1','2', '1', '2','3', '4']
+		# for app_id in app_ids:
+		x = 0
+		while True:
+			app_id = rc.rpop('id_360')
+			if not app_id:
+				x += 1
+				if x > 3:
+					raise CloseSpider('no datas')
+				time.sleep(60)
+				continue
 			app_item = AppItem()
 			app_item['app_id'] = app_id
 			url = self.url.format(app_id)
