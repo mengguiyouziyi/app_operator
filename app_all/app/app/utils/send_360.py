@@ -29,3 +29,4 @@ from app.utils.info import rc, etl
 if __name__ == '__main__':
 	for i in range(4000000):
 		rc.lpush('id_360', i)
+		print(i)
