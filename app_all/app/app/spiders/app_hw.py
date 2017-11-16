@@ -2,7 +2,6 @@
 import scrapy
 import re
 import time
-from datetime import datetime
 from app.items import HwItem
 from app.utils.info import rc
 from scrapy.exceptions import CloseSpider
@@ -11,24 +10,19 @@ from scrapy.exceptions import CloseSpider
 class AppsSpider(scrapy.Spider):
 	name = 'app_hw'
 	allowed_domains = ['appstore.huawei.com']
-	# start_url = 'http://appstore.huawei.com/search/{}/'
 	start_url = 'http://appstore.huawei.com/app/C{}'
-	# start_url = 'http://appstore.huawei.com/plugin/appstore/search?searchText={}'
-	# chis = [chr(ch) for ch in range(0x4e00, 0x9fa6)]
 
 	def start_requests(self):
-		# urls = (self.start_url.format(c) for c in self.chis)
-		# for url in urls:
-		# 	yield scrapy.Request(url)
-		x = 0
-		while True:
-			id_hw = rc.rpop('id_hw')
-			if not id_hw:
-				x += 1
-				if x > 3:
-					raise CloseSpider('no datas')
-				time.sleep(60)
-				continue
+		# x = 0
+		# while True:
+		# 	id_hw = rc.rpop('id_hw')
+		# 	if not id_hw:
+		# 		x += 1
+		# 		if x > 3:
+		# 			raise CloseSpider('no datas')
+		# 		time.sleep(60)
+		# 		continue
+			id_hw = '290'
 			url = self.start_url.format(id_hw)
 			yield scrapy.Request(url)
 

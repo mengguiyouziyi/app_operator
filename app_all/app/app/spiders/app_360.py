@@ -4,7 +4,6 @@ import json
 import scrapy
 import time
 from urllib.parse import quote_plus
-from datetime import datetime
 from scrapy.spiders import Spider
 from app.items import AppItem
 from app.utils.info import rc

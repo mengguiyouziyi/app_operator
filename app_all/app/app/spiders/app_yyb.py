@@ -3,7 +3,6 @@ import scrapy
 import re
 import json
 import time
-from datetime import datetime
 from app.items import YYBItem
 from app.utils.info import rc
 from scrapy.exceptions import CloseSpider
@@ -16,18 +15,16 @@ class AppsSpider(scrapy.Spider):
 	base_url = 'http://sj.qq.com/myapp/searchAjax.htm?kw='
 
 	def start_requests(self):
-		# chis = (chr(ch) for ch in range(0x4e00, 0x9fa6))
-		# for chi in chis:
-		# 	yield scrapy.Request(self.start_url.format(chi), meta={'chi': chi})
-		x = 0
-		while True:
-			word_yyb = rc.rpop('word_yyb')
-			if not word_yyb:
-				x += 1
-				if x > 3:
-					raise CloseSpider('no datas')
-				time.sleep(60)
-				continue
+		# x = 0
+		# while True:
+		# 	word_yyb = rc.rpop('word_yyb')
+		# 	if not word_yyb:
+		# 		x += 1
+		# 		if x > 3:
+		# 			raise CloseSpider('no datas')
+		# 		time.sleep(60)
+		# 		continue
+			word_yyb = '百度魔图'
 			url = self.start_url.format(word_yyb)
 			yield scrapy.Request(url, meta={'chi': word_yyb})
 
