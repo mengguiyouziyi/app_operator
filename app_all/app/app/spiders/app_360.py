@@ -114,7 +114,6 @@ class SoftSpider(Spider):
 		app_item['sys'] = sys
 		app_item['lang'] = lang
 		app_item['tag'] = tag
-		app_item['crawl_time'] = datetime.now().strftime(SQL_DATETIME_FORMAT)
 
 		baike_name1 = re.search(r"'baike_name': '(.+?)'", response.text)
 

@@ -77,5 +77,4 @@ class AppsSpider(scrapy.Spider):
 		item['pic_url'] = str(pic_url) if pic_url else ''
 		item['des'] = des
 		item['comm_num'] = comm_num
-		item['crawl_time'] = datetime.now().strftime(SQL_DATETIME_FORMAT)
 		yield item

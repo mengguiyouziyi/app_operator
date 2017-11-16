@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-# -*- coding: utf-8 -*-
 import scrapy
 import re
 import json
@@ -93,7 +92,6 @@ class AppsSpider(scrapy.Spider):
 			item['authorId'] = authorId
 			item['authorName'] = authorName
 			item['description'] = description
-			item['crawl_time'] = datetime.now().strftime(SQL_DATETIME_FORMAT)
 			# apkUrl = appDetail.get('apkUrl', '')
 			# http://sj.qq.com/myapp/detail.htm?apkName=com.qihoo360.mobilesafe
 			detai_url = 'http://sj.qq.com/myapp/detail.htm?apkName=' + pkgName
