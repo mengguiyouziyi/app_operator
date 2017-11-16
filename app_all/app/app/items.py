@@ -34,8 +34,6 @@ class AppItem(scrapy.Item):
 	good_num = scrapy.Field()
 	bad_num = scrapy.Field()
 
-	crawl_time = scrapy.Field()
-
 
 # class LikeItem(scrapy.Item):
 # 	app_id = scrapy.Field()
@@ -58,25 +56,19 @@ class AppItem(scrapy.Item):
 
 
 class HwItem(scrapy.Item):
-	appId = scrapy.Field()
-	iconUrl = scrapy.Field()
-	pkgName = scrapy.Field()
-	appName = scrapy.Field()
-	isOfficial = scrapy.Field()
-	averageRating = scrapy.Field()
-	ratingCount = scrapy.Field()
-	appDownCount = scrapy.Field()
-	fileSize = scrapy.Field()
-	categoryId = scrapy.Field()
-	categoryName = scrapy.Field()
-	images = scrapy.Field()
-	versionName = scrapy.Field()
-	apkPublishTime = scrapy.Field()
-	authorId = scrapy.Field()
-	authorName = scrapy.Field()
-	description = scrapy.Field()
-	sameList = scrapy.Field()
-	crawl_time = scrapy.Field()
+	soft_id = scrapy.Field()
+	logo_url = scrapy.Field()
+	soft_name = scrapy.Field()
+	pname = scrapy.Field()
+	down_num = scrapy.Field()
+	soft_score = scrapy.Field()
+	soft_size = scrapy.Field()
+	create_date = scrapy.Field()
+	auth = scrapy.Field()
+	version = scrapy.Field()
+	pic_url = scrapy.Field()
+	des = scrapy.Field()
+	comm_num = scrapy.Field()
 
 
 class YYBItem(scrapy.Item):
@@ -98,4 +90,3 @@ class YYBItem(scrapy.Item):
 	authorName = scrapy.Field()
 	description = scrapy.Field()
 	sameList = scrapy.Field()
-	crawl_time = scrapy.Field()
