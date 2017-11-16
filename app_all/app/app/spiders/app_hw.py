@@ -13,16 +13,16 @@ class AppsSpider(scrapy.Spider):
 	start_url = 'http://appstore.huawei.com/app/C{}'
 
 	def start_requests(self):
-		# x = 0
-		# while True:
-		# 	id_hw = rc.rpop('id_hw')
-		# 	if not id_hw:
-		# 		x += 1
-		# 		if x > 3:
-		# 			raise CloseSpider('no datas')
-		# 		time.sleep(60)
-		# 		continue
-			id_hw = '290'
+		x = 0
+		while True:
+			id_hw = rc.rpop('id_hw')
+			if not id_hw:
+				x += 1
+				if x > 3:
+					raise CloseSpider('no datas')
+				time.sleep(60)
+				continue
+			# id_hw = '290'
 			url = self.start_url.format(id_hw)
 			yield scrapy.Request(url)
 
