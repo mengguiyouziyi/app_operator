@@ -2,11 +2,7 @@
 
 import os
 import sys
-import pymysql
-import time
 from os.path import dirname
-
-from my_redis import QueueRedis
 
 father_path = dirname(dirname(os.path.abspath(dirname(__file__))))
 base_path = dirname(dirname(os.path.abspath(dirname(__file__))))
@@ -23,11 +19,11 @@ def send_key(key):
 	sql = """select soft_id from hw_app ORDER BY soft_id"""
 	cursor.execute(sql)
 	results = cursor.fetchall()
-	values = [str(i['soft_id']) for i in results if i['soft_id']]
+	values = [str(result['soft_id']) for result in results if result['soft_id']]
 	if values:
-		for value in values:
+		for i, value in enumerate(values):
 			rc.lpush(key, value)
-			print(1)
+			print(i)
 
 
 if __name__ == '__main__':
