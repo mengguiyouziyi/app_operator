@@ -29,13 +29,13 @@ class AppsSpider(scrapy.Spider):
 			yield scrapy.Request(url, meta={'chi': word_yyb})
 
 	def parse(self, response):
-		item = YYBItem()
 		j = json.loads(response.text)
 		if not j.get('success', ''):
 			return
 		obj = j.get('obj', {})
 		items = obj.get('items', [])
 		for ite in items:
+			item = YYBItem()
 			# apkMd5 = appDetail.get('apkMd5', '')
 			appDetail = ite.get('appDetail', {})
 			appId = appDetail.get('appId', '')
@@ -99,7 +99,7 @@ class AppsSpider(scrapy.Spider):
 		if hasNext != 0:
 			chi = response.meta.get('chi', '')
 			next_url = self.base_url + chi + "&pns=" + pageNumberStack + '&sid=0'
-			yield scrapy.Request(next_url, callback=self.parse)
+			yield scrapy.Request(next_url)
 
 	def parse_detail(self, response):
 		item = response.meta.get('item', '')
