@@ -5,8 +5,8 @@
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
 
-from app_all.app.app.items import AppItem, HwItem, YYBItem
-from app_all.app.app.utils.info import etl
+from app.items import AppItem, HwItem, YYBItem
+from app.utils.info import etl
 
 
 class MysqlPipeline(object):

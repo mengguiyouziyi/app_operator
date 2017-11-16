@@ -6,8 +6,8 @@ import time
 from urllib.parse import quote_plus
 from datetime import datetime
 from scrapy.spiders import Spider
-from app_all.app.app.items import AppItem
-from app_all.app.app.utils.info import rc
+from app.items import AppItem
+from app.utils.info import rc
 from scrapy.exceptions import CloseSpider
 
 

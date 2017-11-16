@@ -11,7 +11,7 @@ sys.path.append(path)
 sys.path.append(base_path)
 sys.path.append(father_path)
 
-from app_all.app.app.utils.info import rc
+from app.utils.info import rc
 
 if __name__ == '__main__':
 	for i in range(4000000):

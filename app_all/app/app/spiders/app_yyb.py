@@ -5,8 +5,8 @@ import re
 import json
 import time
 from datetime import datetime
-from app_all.app.app.items import YYBItem
-from app_all.app.app.utils.info import rc
+from app.items import YYBItem
+from app.utils.info import rc
 from scrapy.exceptions import CloseSpider
 
 

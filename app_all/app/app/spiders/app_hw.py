@@ -3,8 +3,8 @@ import scrapy
 import re
 import time
 from datetime import datetime
-from app_all.app.app.items import HwItem
-from app_all.app.app.utils.info import rc
+from app.items import HwItem
+from app.utils.info import rc
 from scrapy.exceptions import CloseSpider
 
 
