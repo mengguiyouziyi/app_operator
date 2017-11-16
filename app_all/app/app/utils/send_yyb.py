@@ -19,7 +19,7 @@ def send_key(key):
 	sql = """select soft_name from hw_app ORDER BY soft_id"""
 	cursor.execute(sql)
 	results = cursor.fetchall()
-	values = [result['com_name'].strip() for result in results]
+	values = [result['soft_name'].strip() for result in results]
 	if values:
 		for i, value in enumerate(values):
 			rc.lpush(key, value)
