@@ -18,18 +18,20 @@ sys.path.append(father_path)
 import base64
 from random import choice
 from scrapy.exceptions import IgnoreRequest, CloseSpider
+from app.utils.bloomfilter import PyBloomFilter
+from app.utils.info import rc
 
 
-# class BloomfilterMiddleware(object):
-# 	def __init__(self):
-# 		self.bf = PyBloomFilter(conn=rc)
-#
-# 	def process_request(self, request, spider):
-# 		url = request.url
-# 		if self.bf.is_exist(url):
-# 			raise IgnoreRequest
-# 		else:
-# 			self.bf.add(url)
+class BloomfilterMiddleware(object):
+	def __init__(self):
+		self.bf = PyBloomFilter(conn=rc, key='BloomFilter_yyb')
+
+	def process_request(self, request, spider):
+		url = request.url
+		if self.bf.is_exist(url):
+			raise IgnoreRequest
+		else:
+			self.bf.add(url)
 
 class CloseMiddleware(object):
 	def process_response(self, request, response, spider):
