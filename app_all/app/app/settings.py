@@ -36,7 +36,7 @@ LOG_STDOUT = True
 # DUPEFILTER_DEBUG = True
 
 # DEBUG INFO WARNING ERROR CRITICAL
-LOG_LEVEL = 'INFO'
+LOG_LEVEL = 'DEBUG'
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 # CONCURRENT_REQUESTS = 32

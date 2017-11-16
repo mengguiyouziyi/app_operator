@@ -17,7 +17,7 @@ class SoftSpider(Spider):
 	url = 'http://zhushou.360.cn/detail/index/soft_id/{}'
 
 	def start_requests(self):
-		app_ids = ['1','2', '1', '3', '4']
+		app_ids = ['1','2', '1', '2','3', '4']
 		for app_id in app_ids:
 		# x = 0
 		# while True:
