@@ -24,7 +24,7 @@ class AppsSpider(scrapy.Spider):
 		# 			raise CloseSpider('no datas')
 		# 		time.sleep(60)
 		# 		continue
-			word_yyb = '百度魔图'
+			word_yyb = '百度魔'
 			url = self.start_url.format(word_yyb)
 			yield scrapy.Request(url, meta={'chi': word_yyb})
 
@@ -97,11 +97,12 @@ class AppsSpider(scrapy.Spider):
 
 		pageNumberStack = obj.get('pageNumberStack', '')
 		hasNext = obj.get('hasNext', 0)
-		if hasNext != 0:
-			word_yyb = response.meta.get('chi', '')
-			next_url = self.base_url + word_yyb + "&pns=" + pageNumberStack + '&sid=0'
-			print(next_url)
-			yield scrapy.Request(next_url, meta={'chi': word_yyb})
+		if hasNext == 0:
+			return
+		word_yyb = response.meta.get('chi', '')
+		next_url = self.base_url + word_yyb + "&pns=" + pageNumberStack + '&sid=0'
+		print(next_url)
+		yield scrapy.Request(next_url, meta={'chi': word_yyb})
 
 	def parse_detail(self, response):
 		item = response.meta.get('item', '')
