@@ -37,12 +37,15 @@ class AppsSpider(scrapy.Spider):
 		items = obj.get('items', [])
 		for ite in items:
 			item = YYBItem()
-
 			# apkMd5 = appDetail.get('apkMd5', '')
 			appDetail = ite.get('appDetail', {})
+			pkgName = appDetail.get('pkgName', '')
+			if rc.sismember('app_yyb_quchong', pkgName):
+				continue
+			else:
+				rc.sadd('app_yyb_quchong', pkgName)
 			appId = appDetail.get('appId', '')
 			iconUrl = appDetail.get('iconUrl', '')
-			pkgName = appDetail.get('pkgName', )
 			appName = appDetail.get('appName', '')
 			flag = appDetail.get('flag', '')
 			isGf = (flag >> (1 * 2)) & 3
