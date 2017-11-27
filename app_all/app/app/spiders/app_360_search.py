@@ -36,7 +36,7 @@ class SoftSpider(Spider):
 			return
 		search_word = response.meta.get('search_word', '')
 		select = Selector(text=response.text)
-		ids = select.xpath('//div[@class="download comdown"][position()<6]/a/@sid').extract()
+		ids = select.xpath('//div[@class="SeaCon"]/ul/li[position()<6]/div[@class="download comdown"]/a/@sid').extract()
 		for id in ids:
 			item = AppItem()
 			item['search_word'] = search_word
