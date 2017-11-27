@@ -41,15 +41,15 @@ class SoftSpider(Spider):
 			item = AppItem()
 			item['search_word'] = search_word
 			# app_id = re.search(r'data\-(\d+)', id).group(1)
-			print(id)
+			# print(id)
 			item['app_id'] = id
 			url = self.id_url.format(id)
 			yield scrapy.Request(url, meta={'item': item, 'dont_redirect': True}, callback=self.parse_detail)
 
 	def parse_detail(self, response):
-		print(response.url)
+		# print(response.url)
 		if '获取应用内容失败，请尝试ctrl+f5刷新' in response.text:
-			print(response.url)
+			# print(response.url)
 			return
 		item = response.meta.get('item', '')
 		pic = response.xpath('//*[@id="app-info-panel"]//dl[@class="clearfix"]/dt/img/@src').extract_first()
