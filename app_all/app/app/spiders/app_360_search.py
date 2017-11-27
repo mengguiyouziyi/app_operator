@@ -32,17 +32,17 @@ class SoftSpider(Spider):
 			yield scrapy.Request(url, meta={'item': item, 'dont_redirect': True})
 
 	def parse(self, response):
-		print(response.url)
+		# print(response.url)
 		if '抱歉，没有找到与' in response.text:
 			return
 		select = Selector(text=response.text)
-		ids = select.xpath('//div[@id="searchpage-list"]/dl[position()<6]/@id').extract()
+		ids = select.xpath('//div[@class="download comdown"]/a[position()<6]/@sid').extract()
 		for id in ids:
 			item = response.meta.get('item', '')
-			app_id = re.search(r'data\-(\d+)', id).group(1)
-			print(app_id)
-			item['app_id'] = app_id
-			url = self.id_url.format(app_id)
+			# app_id = re.search(r'data\-(\d+)', id).group(1)
+			# print(id)
+			item['app_id'] = id
+			url = self.id_url.format(id)
 			yield scrapy.Request(url, meta={'item': item, 'dont_redirect': True}, callback=self.parse_detail)
 
 	def parse_detail(self, response):
