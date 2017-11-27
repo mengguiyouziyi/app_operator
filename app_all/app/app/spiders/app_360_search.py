@@ -40,7 +40,6 @@ class SoftSpider(Spider):
 		for id in ids:
 			item = AppItem()
 			item['search_word'] = search_word
-			item = response.meta.get('item', '')
 			# app_id = re.search(r'data\-(\d+)', id).group(1)
 			print(id)
 			item['app_id'] = id
