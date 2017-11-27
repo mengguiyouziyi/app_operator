@@ -9,6 +9,7 @@ import scrapy
 
 
 class AppItem(scrapy.Item):
+	search_word = scrapy.Field()
 	pic = scrapy.Field()
 	soft_name = scrapy.Field()
 	is_official = scrapy.Field()
