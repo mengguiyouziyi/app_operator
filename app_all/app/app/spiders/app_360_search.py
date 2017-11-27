@@ -22,11 +22,11 @@ class SoftSpider(Spider):
 		self.rc = StrictRedisCluster(startup_nodes=startup_nodes, decode_responses=True)
 
 	def start_requests(self):
-		# while True:
-		# 	search_word = self.rc.rpop('360_word')
-		# 	if not search_word:
-		# 		raise CloseSpider('no datas')
-			search_word = '水果泡泡'
+		while True:
+			search_word = self.rc.rpop('360_word')
+			if not search_word:
+				raise CloseSpider('no datas')
+			# search_word = '水果泡泡'
 			url = self.url.format(search_word)
 			yield scrapy.Request(url, meta={'search_word': search_word, 'dont_redirect': True})
 
