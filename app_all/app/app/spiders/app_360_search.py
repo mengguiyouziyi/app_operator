@@ -15,7 +15,7 @@ from scrapy.exceptions import CloseSpider
 class SoftSpider(Spider):
 	name = 'app_360_search'
 	allowed_domains = ['360.cn']
-	url = 'http://baoku.360.cn/soft/search?kw={}'
+	url = 'http://zhushou.360.cn/search/index/?kw={}'
 	id_url = 'http://zhushou.360.cn/detail/index/soft_id/{}'
 
 	def __init__(self):
@@ -32,13 +32,15 @@ class SoftSpider(Spider):
 			yield scrapy.Request(url, meta={'item': item, 'dont_redirect': True})
 
 	def parse(self, response):
-		print(response.url)
+		# print(response.url)
+		if '抱歉，没有找到与' in response.text:
+			return
 		select = Selector(text=response.text)
 		ids = select.xpath('//div[@id="searchpage-list"]/dl[position()<6]/@id').extract()
 		for id in ids:
 			item = response.meta.get('item', '')
 			app_id = re.search(r'data\-(\d+)', id).group(1)
-			print(app_id)
+			# print(app_id)
 			item['app_id'] = app_id
 			url = self.id_url.format(app_id)
 			yield scrapy.Request(url, meta={'item': item, 'dont_redirect': True}, callback=self.parse_detail)
