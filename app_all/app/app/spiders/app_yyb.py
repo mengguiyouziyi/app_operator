@@ -4,7 +4,8 @@ import re
 import json
 import time
 from app.items import YYBItem
-from app.utils.info import rc
+from app.utils.info import startup_nodes
+from rediscluster import StrictRedisCluster
 from scrapy.exceptions import CloseSpider
 
 
@@ -14,12 +15,15 @@ class AppsSpider(scrapy.Spider):
 	start_url = 'http://sj.qq.com/myapp/searchAjax.htm?kw={}&pns=&sid='
 	base_url = 'http://sj.qq.com/myapp/searchAjax.htm?kw='
 
+	def __init__(self):
+		self.rc = StrictRedisCluster(startup_nodes=startup_nodes, decode_responses=True)
+
 	def start_requests(self):
 		# ss = ['百度魔图', '百度魔']
 		# for word_yyb in ss:
 		x = 0
 		while True:
-			word_yyb = rc.rpop('word_yyb')
+			word_yyb = self.rc.rpop('word_yyb')
 			if not word_yyb:
 				x += 1
 				if x > 3:

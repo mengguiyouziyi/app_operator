@@ -7,7 +7,8 @@ from urllib.parse import quote_plus
 from scrapy.spiders import Spider
 from scrapy.selector import Selector
 from app.items import AppItem
-from app.utils.info import rc
+from app.utils.info import startup_nodes
+from rediscluster import StrictRedisCluster
 from scrapy.exceptions import CloseSpider
 
 
@@ -17,9 +18,12 @@ class SoftSpider(Spider):
 	url = 'http://baoku.360.cn/soft/search?kw={}'
 	id_url = 'http://zhushou.360.cn/detail/index/soft_id/{}'
 
+	def __init__(self):
+		self.rc = StrictRedisCluster(startup_nodes=startup_nodes, decode_responses=True)
+
 	def start_requests(self):
 		while True:
-			search_word = rc.rpop('360_word')
+			search_word = self.rc.rpop('360_word')
 			if not search_word:
 				raise CloseSpider('no datas')
 			item = AppItem()

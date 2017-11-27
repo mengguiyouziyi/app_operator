@@ -6,7 +6,8 @@ import time
 from urllib.parse import quote_plus
 from scrapy.spiders import Spider
 from app.items import AppItem
-from app.utils.info import rc
+from app.utils.info import startup_nodes
+from rediscluster import StrictRedisCluster
 from scrapy.exceptions import CloseSpider
 
 
@@ -15,12 +16,15 @@ class SoftSpider(Spider):
 	allowed_domains = ['360.cn']
 	url = 'http://zhushou.360.cn/detail/index/soft_id/{}'
 
+	def __init__(self):
+		self.rc = StrictRedisCluster(startup_nodes=startup_nodes, decode_responses=True)
+
 	def start_requests(self):
 		# app_ids = ['1','2', '1', '2','3', '4']
 		# for app_id in app_ids:
 		x = 0
 		while True:
-			app_id = rc.rpop('id_360')
+			app_id = self.rc.rpop('id_360')
 			if not app_id:
 				x += 1
 				if x > 3:

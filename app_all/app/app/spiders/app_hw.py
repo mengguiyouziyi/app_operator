@@ -3,7 +3,8 @@ import scrapy
 import re
 import time
 from app.items import HwItem
-from app.utils.info import rc
+from app.utils.info import startup_nodes
+from rediscluster import StrictRedisCluster
 from scrapy.exceptions import CloseSpider
 
 
@@ -12,10 +13,13 @@ class AppsSpider(scrapy.Spider):
 	allowed_domains = ['appstore.huawei.com']
 	start_url = 'http://appstore.huawei.com/app/C{}'
 
+	def __init__(self):
+		self.rc = StrictRedisCluster(startup_nodes=startup_nodes, decode_responses=True)
+
 	def start_requests(self):
 		x = 0
 		while True:
-			id_hw = rc.rpop('id_hw')
+			id_hw = self.rc.rpop('id_hw')
 			if not id_hw:
 				x += 1
 				if x > 3:
