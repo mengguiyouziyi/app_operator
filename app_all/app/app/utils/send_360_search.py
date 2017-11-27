@@ -18,10 +18,10 @@ from app.utils.info import startup_nodes, etl
 def send_key(key):
 	rc = StrictRedisCluster(startup_nodes=startup_nodes, decode_responses=True)
 	cursor = etl.cursor()
-	sql = """select app_name from app_five"""
+	sql = """select comp_name from app_five"""
 	cursor.execute(sql)
 	results = cursor.fetchall()
-	values = [i['app_name'] for i in results if i['app_name']]
+	values = [i['comp_name'] for i in results if i['comp_name']]
 	for value in values:
 		rc.lpush(key, value)
 
