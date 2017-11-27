@@ -113,7 +113,7 @@ USER_AGENT_CHOICES = [
 # See http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
 DOWNLOADER_MIDDLEWARES = {
 	# 'app.middlewares.BloomfilterMiddleware': 3,
-	# 'app.middlewares.ProxyMiddleware': 1,
+	'app.middlewares.ProxyMiddleware': 1,
 	'app.middlewares.RotateUserAgentMiddleware': 2,
 	'app.middlewares.RetryMiddleware': 110,
 }
