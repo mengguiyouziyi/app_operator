@@ -27,18 +27,19 @@ class SoftSpider(Spider):
 		# 	if not search_word:
 		# 		raise CloseSpider('no datas')
 			search_word = '水果泡泡'
-			item = AppItem()
-			item['search_word'] = search_word
 			url = self.url.format(search_word)
-			yield scrapy.Request(url, meta={'item': item, 'dont_redirect': True})
+			yield scrapy.Request(url, meta={'search_word': search_word, 'dont_redirect': True})
 
 	def parse(self, response):
 		# print(response.url)
 		if '抱歉，没有找到与' in response.text:
 			return
+		search_word = response.meta.get('search_word', '')
 		select = Selector(text=response.text)
-		ids = select.xpath('//div[@class="download comdown"]/a[position()<6]/@sid').extract()
+		ids = select.xpath('//div[@class="download comdown"][position()<6]/a/@sid').extract()
 		for id in ids:
+			item = AppItem()
+			item['search_word'] = search_word
 			item = response.meta.get('item', '')
 			# app_id = re.search(r'data\-(\d+)', id).group(1)
 			print(id)
@@ -49,6 +50,7 @@ class SoftSpider(Spider):
 	def parse_detail(self, response):
 		print(response.url)
 		if '获取应用内容失败，请尝试ctrl+f5刷新' in response.text:
+			print(response.url)
 			return
 		item = response.meta.get('item', '')
 		pic = response.xpath('//*[@id="app-info-panel"]//dl[@class="clearfix"]/dt/img/@src').extract_first()
