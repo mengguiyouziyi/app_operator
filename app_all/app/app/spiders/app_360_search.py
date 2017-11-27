@@ -22,10 +22,11 @@ class SoftSpider(Spider):
 		self.rc = StrictRedisCluster(startup_nodes=startup_nodes, decode_responses=True)
 
 	def start_requests(self):
-		while True:
-			search_word = self.rc.rpop('360_word')
-			if not search_word:
-				raise CloseSpider('no datas')
+		# while True:
+		# 	search_word = self.rc.rpop('360_word')
+		# 	if not search_word:
+		# 		raise CloseSpider('no datas')
+			search_word = '水果泡泡'
 			item = AppItem()
 			item['search_word'] = search_word
 			url = self.url.format(search_word)
@@ -40,12 +41,13 @@ class SoftSpider(Spider):
 		for id in ids:
 			item = response.meta.get('item', '')
 			# app_id = re.search(r'data\-(\d+)', id).group(1)
-			# print(id)
+			print(id)
 			item['app_id'] = id
 			url = self.id_url.format(id)
 			yield scrapy.Request(url, meta={'item': item, 'dont_redirect': True}, callback=self.parse_detail)
 
 	def parse_detail(self, response):
+		print(response.url)
 		if '获取应用内容失败，请尝试ctrl+f5刷新' in response.text:
 			return
 		item = response.meta.get('item', '')
