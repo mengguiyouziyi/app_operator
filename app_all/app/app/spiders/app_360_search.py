@@ -34,7 +34,9 @@ class SoftSpider(Spider):
 	def parse(self, response):
 		select = Selector(text=response.text)
 		ids = select.xpath('//div[@id="searchpage-list"]/dl[position()<6]/@id').extract()
+		print(ids)
 		for id in ids:
+			print(id)
 			item = response.meta.get('item', '')
 			app_id = re.search(r'data\-(\d+)', id).group(1)
 			item['app_id'] = app_id
