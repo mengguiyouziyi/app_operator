@@ -18,20 +18,19 @@ sys.path.append(father_path)
 import base64
 from random import choice
 from scrapy.exceptions import IgnoreRequest, CloseSpider
-from app.utils.bloomfilter import PyBloomFilter
-from app.utils.info import rc
+# from app.utils.bloomfilter import PyBloomFilter
 
 
-class BloomfilterMiddleware(object):
-	def __init__(self):
-		self.bf = PyBloomFilter(conn=rc, key='BloomFilter_yyb')
-
-	def process_request(self, request, spider):
-		url = request.url
-		if self.bf.is_exist(url):
-			raise IgnoreRequest
-		else:
-			self.bf.add(url)
+# class BloomfilterMiddleware(object):
+# 	def __init__(self):
+# 		self.bf = PyBloomFilter(conn=rc, key='BloomFilter_yyb')
+#
+# 	def process_request(self, request, spider):
+# 		url = request.url
+# 		if self.bf.is_exist(url):
+# 			raise IgnoreRequest
+# 		else:
+# 			self.bf.add(url)
 
 class CloseMiddleware(object):
 	def process_response(self, request, response, spider):
@@ -46,17 +45,17 @@ class ProxyMiddleware(object):
 		self.proxyServer = "http://proxy.abuyun.com:9020"
 		pl = [
 			"HJ3F19379O94DO9D:D1766F5002A70BC4",
-			"H285292O32R01G0D:1DA6335539C2EB5F",
-			"HD3920957396Y39D:9E33CB0DEAD0A6E7",
-			"HH8W3B5VNSU81V6D:77D96A7DC3F52766",
-			"H334A990UYU4UKLD:628E84E1535E7F42",
-			"H1PAC9C64710O54D:2FBDED6DDC8FD140",
-			"HG6V4272626N007D:C08BB93CF91E2391",
-			"HY5ZDUG5F9F2194D:245205A0461BDE12",
-			"H51144995KA6IC8D:E0F0E2F2B96DED0F",
-			"HMQFU126826U5J7D:176550D703FA05E4",
-			"H34C100W441WVO6D:A3CD5352C2863367",
-			"H30W5D0WBHL6301D:782C396260F8755D",
+			# "H285292O32R01G0D:1DA6335539C2EB5F",
+			# "HD3920957396Y39D:9E33CB0DEAD0A6E7",
+			# "HH8W3B5VNSU81V6D:77D96A7DC3F52766",
+			# "H334A990UYU4UKLD:628E84E1535E7F42",
+			# "H1PAC9C64710O54D:2FBDED6DDC8FD140",
+			# "HG6V4272626N007D:C08BB93CF91E2391",
+			# "HY5ZDUG5F9F2194D:245205A0461BDE12",
+			# "H51144995KA6IC8D:E0F0E2F2B96DED0F",
+			# "HMQFU126826U5J7D:176550D703FA05E4",
+			# "H34C100W441WVO6D:A3CD5352C2863367",
+			# "H30W5D0WBHL6301D:782C396260F8755D",
 		]
 		self.proxyAuths = ["Basic " + base64.urlsafe_b64encode(bytes(p, "ascii")).decode("utf8") for p in pl]
 
