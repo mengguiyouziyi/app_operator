@@ -32,13 +32,13 @@ class SoftSpider(Spider):
 			yield scrapy.Request(url, meta={'item': item, 'dont_redirect': True})
 
 	def parse(self, response):
+		print(response.url)
 		select = Selector(text=response.text)
 		ids = select.xpath('//div[@id="searchpage-list"]/dl[position()<6]/@id').extract()
-		print(ids)
 		for id in ids:
-			print(id)
 			item = response.meta.get('item', '')
 			app_id = re.search(r'data\-(\d+)', id).group(1)
+			print(app_id)
 			item['app_id'] = app_id
 			url = self.id_url.format(app_id)
 			yield scrapy.Request(url, meta={'item': item, 'dont_redirect': True}, callback=self.parse_detail)
